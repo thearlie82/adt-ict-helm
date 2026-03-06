@@ -1,0 +1,15 @@
+ADT ICT Management Portal has been deployed.
+
+  Portal: https://{{ .Values.ui.route.host }}
+  API:    https://{{ .Values.api.route.host }}{{ .Values.api.route.path }}
+
+Namespace: {{ .Values.global.namespace }}
+
+{{- if not .Values.postgresql.enabled }}
+
+WARNING: PostgreSQL is disabled. The application requires a database.
+         Set postgresql.enabled=true or provide an external ADT_DATABASE_URL.
+{{- end }}
+
+To check pod status:
+  oc get pods -n {{ .Values.global.namespace }}

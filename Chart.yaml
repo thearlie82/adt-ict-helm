@@ -1,0 +1,28 @@
+apiVersion: v2
+name: adt-ict
+description: ADT ICT Management Portal - Defence ICT Infrastructure Management
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+dependencies:
+  - name: api
+    version: 0.1.0
+    repository: file://charts/api
+    condition: api.enabled
+  - name: ui
+    version: 0.1.0
+    repository: file://charts/ui
+    condition: ui.enabled
+  - name: worker
+    version: 0.1.0
+    repository: file://charts/worker
+    condition: worker.enabled
+  - name: redis
+    version: 0.1.0
+    repository: file://charts/redis
+    condition: redis.enabled
+  - name: postgresql
+    version: 0.1.0
+    repository: file://charts/postgresql
+    condition: postgresql.enabled

@@ -1,0 +1,15 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/thearlie82/adt-ict-ui
+  tag: latest
+  pullPolicy: Always
+resources:
+  requests:
+    cpu: 25m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+route:
+  host: ict.apps-crc.testing
+  path: /

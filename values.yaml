@@ -1,0 +1,122 @@
+# ADT ICT Management Portal - Default values (dev-safe)
+
+global:
+  imageRegistry: ghcr.io/thearlie82
+  imagePullSecrets:
+    - name: ghcr-pull-secret
+  namespace: adt-ict
+
+# Secrets — sensitive values injected into K8s Secret
+secrets:
+  ghesToken: ""
+
+api:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: ghcr.io/thearlie82/adt-ict-api
+    tag: latest
+    pullPolicy: Always
+  env:
+    ADT_PORTAL_MODE: "info-owner"
+    ADT_KEYCLOAK_URL: "http://keycloak.adt-ict.svc.cluster.local:8080"
+    ADT_KEYCLOAK_REALM: "adt"
+    ADT_JWT_AUDIENCE: "adt-portal"
+    ADT_CORS_ORIGINS: "https://ict.apps-crc.testing"
+    ADT_ARTIFACT_STORAGE_PATH: "/data/artifacts"
+    ADT_BEDROCK_REGION: "ap-southeast-2"
+    ADT_BEDROCK_MODEL_ID: "anthropic.claude-3-5-sonnet-20241022-v2:0"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  route:
+    host: ict.apps-crc.testing
+    path: /api
+  artifactPvc:
+    enabled: false
+    claimName: adt-ict-artifacts
+    mountPath: /data/artifacts
+    size: 5Gi
+
+ui:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: ghcr.io/thearlie82/adt-ict-ui
+    tag: latest
+    pullPolicy: Always
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+  route:
+    host: ict.apps-crc.testing
+    path: /
+
+worker:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: ghcr.io/thearlie82/adt-ict-api
+    tag: latest
+    pullPolicy: Always
+  command:
+    - celery
+    - -A
+    - app.tasks.celery_app
+    - worker
+    - --loglevel=info
+    - --concurrency=2
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+
+redis:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: redis
+    tag: 7-alpine
+    pullPolicy: IfNotPresent
+  auth:
+    password: redis-dev-password
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
+
+postgresql:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: registry.redhat.io/rhel9/postgresql-16
+    tag: latest
+    pullPolicy: IfNotPresent
+  auth:
+    database: adt_portal
+    username: adt
+    password: adt-dev-password
+  persistence:
+    enabled: true
+    size: 5Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi

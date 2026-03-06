@@ -1,0 +1,21 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/thearlie82/adt-ict-api
+  tag: latest
+  pullPolicy: Always
+env: {}
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+route:
+  host: ict.apps-crc.testing
+  path: /api
+artifactPvc:
+  enabled: false
+  claimName: adt-ict-artifacts
+  mountPath: /data/artifacts
+  size: 5Gi

@@ -1,0 +1,14 @@
+replicaCount: 1
+image:
+  repository: redis
+  tag: 7-alpine
+  pullPolicy: IfNotPresent
+auth:
+  password: redis-dev-password
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 50m
+    memory: 64Mi

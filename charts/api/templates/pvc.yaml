@@ -1,0 +1,13 @@
+{{- if .Values.artifactPvc.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.artifactPvc.claimName }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.artifactPvc.size }}
+{{- end }}

@@ -1,0 +1,19 @@
+replicaCount: 1
+image:
+  repository: registry.redhat.io/rhel9/postgresql-16
+  tag: latest
+  pullPolicy: IfNotPresent
+auth:
+  database: adt_portal
+  username: adt
+  password: adt-dev-password
+persistence:
+  enabled: true
+  size: 5Gi
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
