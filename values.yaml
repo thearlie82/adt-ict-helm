@@ -18,6 +18,7 @@ api:
     tag: latest
     pullPolicy: Always
   env:
+    ADT_AUTH_PROVIDER: "keycloak"
     ADT_PORTAL_MODE: "info-owner"
     ADT_KEYCLOAK_URL: "http://keycloak.adt-ict.svc.cluster.local:8080"
     ADT_KEYCLOAK_REALM: "adt"
