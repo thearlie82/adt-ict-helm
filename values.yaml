@@ -25,6 +25,8 @@ api:
     ADT_JWT_AUDIENCE: "adt-portal"
     ADT_CORS_ORIGINS: "https://ict.apps-crc.testing"
     ADT_ARTIFACT_STORAGE_PATH: "/data/artifacts"
+    ADT_GRC_API_URL: ""
+    ADT_GRC_PORTAL_URL: ""
     ADT_BEDROCK_REGION: "ap-southeast-2"
     ADT_BEDROCK_MODEL_ID: "anthropic.claude-3-5-sonnet-20241022-v2:0"
   resources:
