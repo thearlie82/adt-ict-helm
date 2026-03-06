@@ -40,5 +40,13 @@ spec:
               port: http
             initialDelaySeconds: 3
             periodSeconds: 10
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: {{ include "ui.fullname" . }}-nginx
