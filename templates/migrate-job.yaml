@@ -28,6 +28,9 @@ spec:
           image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
           command: ["alembic", "upgrade", "head"]
           workingDir: /app
+          env:
+            - name: PYTHONPATH
+              value: /app
           envFrom:
             - secretRef:
                 name: adt-ict-secret
